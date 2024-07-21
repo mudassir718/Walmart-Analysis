@@ -1,3 +1,23 @@
+ALTER table walmart add column day_time varchar(20);
+
+UPDATE walmart
+set day_time = ( case when time between '00:00:00' AND '12:00:00' THEN 'Morning'
+when time between '12:00:00' AND '16:00:00' THEN 'Afternoon'
+ELSE 'Evening' END);
+
+ALTER TABLE walmart	 add column day_name varchar(20);
+UPDATE walmart
+set day_name=dayname(date);
+
+ALTER table walmart add column month_name varchar(20);
+UPDATE walmart
+set month_name=monthname(date);
+
+ALTER TABLE walmart add column VAT varchar(10)
+;
+UPDATE walmart
+SET VAT = round((5*cogs/100),2);
+
 -- How many unique product lines does the data have?
 
 SELECT COUNT(DISTINCT(`product line`)) product_line FROM walmart;
